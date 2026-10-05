@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Viber GO | فايبر جو - لخدمات التوصيل والتنقل</title>
+    
+    <!-- Google Fonts: Cairo (Arabic) & Poppins (English) & Tajawal (Luxury Arabic Titles) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&family=Poppins:wght@300;400;600;700;800&family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- AOS Animation Library CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- Tailwind CSS (CDN) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Custom Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        cairo: ['Cairo', 'sans-serif'],
+                        poppins: ['Poppins', 'sans-serif'],
+                        tajawal: ['Tajawal', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: '#4F46E5', // Indigo 600
+                        secondary: '#F59E0B', // Amber 500
+                        dark: '#0F172A', // Slate 900
+                        darker: '#020617', // Slate 950
+                        gold: '#FFD700',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Custom CSS for specialized animations and backgrounds -->
+    <style>
+        body {
+            font-family: 'Cairo', sans-serif;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+            transition: all 0.3s ease;
+        }
+
+        body.lang-en {
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        /* Hero Background with Overlay */
+        .hero-bg {
+            /* تعديل الرابط ليقرأ من مجلد image */
+            background-image: linear-gradient(rgba(2, 6, 23, 0.7), rgba(2, 6, 23, 0.9)), url('image/hero-bg.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        /* Hero Text Shaded Box */
+        .hero-text-box {
+            background: rgba(15, 23, 42, 0.65);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Glassmorphism Cards for Services */
+        .glass-card {
+            background: rgba(30, 41, 59, 0.4);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .glass-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: rgba(79, 70, 229, 0.5);
+            box-shadow: 0 20px 40px -10px rgba(79, 70, 229, 0.3), inset 0 0 20px rgba(79, 70, 229, 0.1);
+        }
+
+        /* Ultimate WhatsApp Pulse Animation */
+        @keyframes superPulse {
+            0% { transform: scale(1) rotate(0deg); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.8), 0 0 0 0 rgba(37, 211, 102, 0.4); }
+            20% { transform: scale(1.1) rotate(5deg); }
+            40% { transform: scale(1.1) rotate(-5deg); box-shadow: 0 0 0 15px rgba(37, 211, 102, 0.5), 0 0 0 30px rgba(37, 211, 102, 0.2); }
+            60% { transform: scale(1.1) rotate(0deg); }
+            100% { transform: scale(1) rotate(0deg); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0), 0 0 0 0 rgba(37, 211, 102, 0); }
+        }
+        .whatsapp-float {
+            animation: superPulse 2.5s infinite;
+            background: linear-gradient(135deg, #25D366, #128C7E);
+        }
+
+        /* Glowing Text Utility */
+        .text-glow {
+            text-shadow: 0 0 10px rgba(245, 158, 11, 0.5);
+        }
+
+        /* Service Route Item Hover */
+        .route-item {
+            transition: all 0.3s ease;
+        }
+        .route-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 0.5rem;
+            padding-left: 0.5rem;
+            padding-right: 0.5rem;
+        }
+    </style>
+</head>
+<body class="bg-darker text-gray-200">
+
+    <!-- Navbar -->
+    <nav class="fixed w-full z-50 transition-all duration-300 bg-white/95 backdrop-blur-md shadow-lg text-gray-900" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                
+                <!-- Logo Section -->
+                <div class="flex-shrink-0 flex items-center gap-3 cursor-pointer" onclick="window.scrollTo(0,0)">
+                    <!-- تم تعديل الرابط ليقرأ صورة اللوجو من مجلد image -->
+                    <img id="brand-logo" src="image/logo.png" alt="Viber GO Logo" class="h-12 w-12 rounded-full shadow-md object-cover border-2 border-primary bg-white">
+                    
+                    <div>
+                        <h1 class="font-extrabold text-2xl tracking-wide">Viber <span class="text-primary">GO</span></h1>
+                        <p class="text-xs font-bold text-gray-500" data-i18n="logo_sub">لخدمات التوصيل</p>
+                    </div>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-6 space-x-reverse items-center rtl:space-x-reverse" id="nav-links">
+                    <a href="#home" class="text-gray-800 hover:text-primary font-bold transition" data-i18n="nav_home">الرئيسية</a>
+                    <a href="#services" class="text-gray-800 hover:text-primary font-bold transition" data-i18n="nav_services">خدماتنا وأسعارنا</a>
+                    <a href="#contact" class="text-gray-800 hover:text-primary font-bold transition" data-i18n="nav_contact">تواصل معنا</a>
+                    
+                    <!-- Language Switcher -->
+                    <button onclick="toggleLanguage()" class="flex items-center gap-2 bg-gray-100 hover:bg-gray-200 text-gray-800 px-3 py-1.5 rounded-full font-bold transition mx-2 border border-gray-300">
+                        <i class="fa-solid fa-globe text-primary"></i>
+                        <span id="lang-text">English</span>
+                    </button>
+
+                    <a href="https://wa.me/962789907187" target="_blank" class="bg-gradient-to-r from-primary to-indigo-800 text-white px-6 py-2.5 rounded-full font-bold hover:shadow-lg hover:shadow-primary/50 transition transform hover:-translate-y-0.5" data-i18n="nav_book">
+                        احجز الآن
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center gap-4">
+                    <button onclick="toggleLanguage()" class="flex items-center gap-1 bg-gray-100 text-gray-800 px-2 py-1 rounded-full font-bold text-sm">
+                        <i class="fa-solid fa-globe text-primary"></i>
+                        <span id="lang-text-mobile">EN</span>
+                    </button>
+                    <button id="mobile-menu-btn" class="text-gray-800 hover:text-primary focus:outline-none">
+                        <i class="fa-solid fa-bars text-3xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100 absolute w-full shadow-2xl pb-4">
+            <div class="px-4 pt-4 space-y-3 text-center">
+                <a href="#home" class="block px-3 py-2 text-gray-800 font-bold hover:bg-indigo-50 rounded-lg" data-i18n="nav_home">الرئيسية</a>
+                <a href="#services" class="block px-3 py-2 text-gray-800 font-bold hover:bg-indigo-50 rounded-lg" data-i18n="nav_services">خدماتنا وأسعارنا</a>
+                <a href="#contact" class="block px-3 py-2 text-gray-800 font-bold hover:bg-indigo-50 rounded-lg" data-i18n="nav_contact">تواصل معنا</a>
+                <a href="https://wa.me/962789907187" target="_blank" class="block px-3 py-3 mt-4 bg-primary text-white font-bold rounded-lg shadow-md" data-i18n="nav_book">احجز الآن</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-bg min-h-screen flex items-center relative pt-20">
+        <!-- Overlay decorative elements -->
+        <div class="absolute inset-0 bg-gradient-to-b from-transparent via-darker/50 to-darker pointer-events-none"></div>
+        <div class="absolute top-1/4 left-10 w-32 h-32 bg-primary rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse"></div>
+        <div class="absolute bottom-1/4 right-10 w-32 h-32 bg-secondary rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10 w-full mt-10">
+            <!-- Shaded box applied here to make text pop -->
+            <div class="hero-text-box rounded-3xl p-8 md:p-14 max-w-5xl mx-auto" data-aos="zoom-out-up" data-aos-duration="1200">
+                <span class="bg-secondary/20 border border-secondary text-secondary px-5 py-2 rounded-full text-sm font-bold mb-8 inline-flex items-center gap-2 shadow-[0_0_15px_rgba(245,158,11,0.3)]">
+                    <i class="fa-solid fa-bolt text-gold"></i>
+                    <span data-i18n="hero_badge">الخيار الأوفر والأسرع والأكثر أماناً في الأردن</span>
+                </span>
+                
+                <!-- Applied Tajawal font and increased line height (leading-relaxed/custom style) -->
+                <h1 class="font-tajawal text-4xl md:text-6xl lg:text-7xl font-black text-white mb-8 drop-shadow-2xl" style="line-height: 1.6;">
+                    <span data-i18n="hero_title_1">مفهوم جديد لخدمات التنقل مع</span> <br> 
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-secondary via-gold to-yellow-200 text-glow inline-block mt-4" style="line-height: 1.4;">Viber GO</span>
+                </h1>
+                
+                <p class="text-lg md:text-2xl text-gray-200 mb-10 max-w-3xl mx-auto font-light" style="line-height: 1.8;" data-i18n="hero_desc">
+                    أسطول حديث، سائقون محترفون، وأسعار صُممت لتناسبك. نوفر لك خدمات التوصيل بين المدن، رحلات المطار، والمعابر والجسور بأعلى معايير الجودة والفخامة.
+                </p>
+                
+                <div class="flex flex-col sm:flex-row gap-5 justify-center mt-8">
+                    <a href="https://wa.me/962789907187" target="_blank" class="bg-gradient-to-r from-green-500 to-green-600 text-white px-8 py-4 rounded-full font-bold text-lg hover:from-green-400 hover:to-green-500 transition shadow-[0_0_20px_rgba(34,197,94,0.4)] hover:scale-105 flex items-center justify-center gap-3">
+                        <i class="fa-brands fa-whatsapp text-2xl"></i>
+                        <span data-i18n="hero_btn_book">اطلب سيارتك الآن</span>
+                    </a>
+                    <a href="#services" class="bg-white/10 backdrop-blur-md border border-white/20 text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-white hover:text-dark transition shadow-lg flex items-center justify-center gap-3 group">
+                        <i class="fa-solid fa-compass group-hover:animate-spin"></i>
+                        <span data-i18n="hero_btn_prices">استكشف الأسعار</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Animated Scroll Down Indicator -->
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white/50 animate-bounce cursor-pointer hover:text-white transition" onclick="document.getElementById('services').scrollIntoView()">
+            <i class="fa-solid fa-angles-down text-3xl"></i>
+        </div>
+    </section>
+
+    <!-- Luxury Special Offer Banner -->
+    <div class="bg-gradient-to-r from-amber-500 via-yellow-500 to-amber-600 text-darker py-5 shadow-[0_10px_30px_rgba(245,158,11,0.2)] relative z-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row items-center justify-center gap-6 text-center md:text-right" data-aos="flip-up">
+                <div class="bg-darker p-4 rounded-full animate-pulse shadow-lg flex-shrink-0">
+                    <i class="fa-solid fa-star text-gold text-2xl"></i>
+                </div>
+                <p class="text-xl md:text-2xl font-extrabold flex items-center flex-wrap justify-center gap-2">
+                    <span data-i18n="offer_text">عرض خاص جداً ومميز! سيارة كاملة فقط بـ</span> 
+                    <span class="bg-darker text-white px-4 py-1 rounded-lg text-3xl shadow-inner mx-2">14.99 <span class="text-sm font-normal" data-i18n="currency">د.أ</span></span>
+                </p>
+                <a href="https://wa.me/962789907187" target="_blank" class="bg-darker text-white px-8 py-3 rounded-full font-bold hover:bg-gray-800 transition text-md whitespace-nowrap shadow-md mt-2 md:mt-0" data-i18n="offer_btn">
+                    احجز العرض فوراً
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Highly Professional Services & Pricing Section -->
+    <section id="services" class="py-24 bg-darker relative">
+        <!-- Background Elements -->
+        <div class="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
+            <div class="absolute top-20 right-[-5%] w-96 h-96 bg-primary/10 rounded-full blur-3xl"></div>
+            <div class="absolute bottom-20 left-[-5%] w-96 h-96 bg-secondary/10 rounded-full blur-3xl"></div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            
+            <div class="text-center mb-20" data-aos="fade-up">
+                <h2 class="text-4xl md:text-6xl font-black text-white mb-6 uppercase tracking-wider">
+                    <span data-i18n="sec_services_title_1">خدماتنا</span> <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-indigo-400" data-i18n="sec_services_title_2">وأسعارنا</span>
+                </h2>
+                <div class="w-32 h-2 bg-gradient-to-r from-primary via-secondary to-primary mx-auto rounded-full mb-6 opacity-80"></div>
+                <p class="text-gray-400 text-xl max-w-3xl mx-auto font-light" data-i18n="sec_services_desc">أسعار مدروسة بشفافية تامة لتمنحك رفاهية التنقل بأسعار لا تقبل المنافسة.</p>
+            </div>
+
+            <!-- CSS Grid for 3 main categories -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
+                
+                <!-- Category 1: Intercity (التنقلات بين المدن) -->
+                <div class="glass-card rounded-2xl overflow-hidden" data-aos="fade-up" data-aos-delay="100">
+                    <div class="bg-gradient-to-b from-white/10 to-transparent p-8 text-center border-b border-white/10 relative">
+                        <div class="w-20 h-20 bg-gradient-to-tr from-primary to-indigo-400 rounded-full flex items-center justify-center mx-auto mb-5 shadow-[0_0_20px_rgba(79,70,229,0.5)]">
+                            <i class="fa-solid fa-city text-4xl text-white"></i>
+                        </div>
+                        <h3 class="text-3xl font-bold text-white mb-2" data-i18n="cat_intercity">بين المحافظات</h3>
+                        <p class="text-indigo-300 text-sm" data-i18n="cat_intercity_sub">عمان، إربد، الزرقاء</p>
+                    </div>
+                    <div class="p-6">
+                        <div class="space-y-1">
+                            <!-- Route Items -->
+                            <div class="route-item flex justify-between items-center py-3 border-b border-white/5">
+                                <div class="flex items-center gap-3">
+                                    <i class="fa-solid fa-crown text-gold"></i>
+                                    <span class="font-semibold text-gray-200 text-sm md:text-base" data-i18n="route_fullcar_offer">سيارة كاملة (عرض)</span>
+                                </div>
+                                <span class="font-black text-secondary text-xl">14.99 <span class="text-xs">د.أ</span></span>
+                            </div>
+                            
+                            <div class="route-item flex justify-between items-center py-3 border-b border-white/5">
+                                <div class="flex items-center gap-3">
+                                    <i class="fa-solid fa-people-roof text-primary"></i>
+                                    <span class="font-semibold text-gray-200 text-sm md:text-base" data-i18n="route_family">سيارة عائلية</span>
+                                </div>
+                                <span class="font-bold text-white text-lg">14.99 <span class="text-xs">د.أ</span></span>
+                            </div>
+
+                            <div class="route-item flex justify-between items-center py-3 border-b border-white/5">
+                                <div class="flex items-center gap-3">
+                                    <i class="fa-solid fa-user text-gray-400"></i>
+                                    <span class="font-semibold text-gray-200 text-sm md:text-base"><span data-i18n="city_irbid">إربد</span> <i class="fa-solid fa-arrows-left-right text-xs text-primary mx-1"></i> <span data-i18n="city_amman">عمان</span> (راكب)</span>
+                                </div>
+                                <span class="font-bold text-white text-lg">4.99 <span class="text-xs">د.أ</span></span>
+                            </div>
+
+                            <div class="route-item flex justify-between items-center py-3 border-b border-white/5">
+                                <div class="flex items-center gap-3">
+                                    <i class="fa-solid fa-bolt text-secondary"></i>
+                                    <span class="font-semibold text-gray-200 text-sm md:text-base"><span data-i18n="city_irbid">إربد</span> <i class="fa-solid fa-arrows-left-right text-xs text-primary mx-1"></i> <span data-i18n="city_amman">عمان</span> (أوردر فوري)</span>
+                                </div>
+                                <span class="font-bold text-white text-lg">4.99 <span class="text-xs">د.أ</span></span>
+                            </div>
+
+                            <div class="route-item flex justify-between items-center py-3 border-b border-white/5">
+                                <div class="flex items-center gap-3">
+                                    <i class="fa-solid fa-car text-primary"></i>
+                                    <span class="font-semibold text-gray-200 text-sm md:text-base"><span data-i18n="city_irbid">إربد</span> <i class="fa-solid fa-arrow-left text-xs text-primary mx-1"></i> <span data-i18n="city_zarqa">الزرقاء</span> (سيارة كاملة)</span>
+                                </div>
+                                <span class="font-bold text-white text-lg">14.99 <span class="text-xs">د.أ</span></span>
+                            </div>
+
+                            <div class="route-item flex justify-between items-center py-3 border-b border-white/5">
+                                <div class="flex items-center gap-3">
+                                    <i class="fa-solid fa-user text-gray-400"></i>
+                                    <span class="font-semibold text-gray-200 text-sm md:text-base"><span data-i18n="city_irbid">إربد</span> <i class="fa-solid fa-arrows-left-right text-xs text-primary mx-1"></i> <span data-i18n="city_zarqa">الزرقاء</span> (راكب)</span>
+                                </div>
+                                <span class="font-bold text-white text-lg">14.99 <span class="text-xs">د.أ</span></span>
+                            </div>
+
+                            <div class="route-item flex justify-between items-center py-3">
+                                <div class="flex items-center gap-3">
+                                    <i class="fa-solid fa-box text-secondary"></i>
+                                    <span class="font-semibold text-gray-200 text-sm md:text-base"><span data-i18n="city_irbid">إربد</span> <i class="fa-solid fa-arrows-left-right text-xs text-primary mx-1"></i> <span data-i18n="city_zarqa">الزرقاء</span> (أوردر)</span>
+                                </div>
+                                <span class="font-bold text-white text-lg">4.99 <span class="text-xs">د.أ</span></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Category 2: Airport (المطار) - HIGHLIGHTED -->
+                <div class="glass-card rounded-2xl overflow-hidden border-t-4 border-t-secondary relative transform lg:-translate-y-4 shadow-[0_0_30px_rgba(245,158,11,0.15)]" data-aos="fade-up" data-aos-delay="200">
+                    <div class="absolute top-4 left-[-35px] bg-secondary text-darker font-bold py-1 px-10 transform -rotate-45 text-sm shadow-md z-10" data-i18n="badge_popular">
+                        الأكثر طلباً
+                    </div>
+                    <div class="bg-gradient-to-b from-secondary/20 to-transparent p-8 text-center border-b border-white/10 relative">
+                        <div class="w-20 h-20 bg-gradient-to-tr from-secondary to-yellow-300 rounded-full flex items-center justify-center mx-auto mb-5 shadow-[0_0_20px_rgba(245,158,11,0.5)] text-darker">
+                            <i class="fa-solid fa-plane-departure text-4xl"></i>
+                        </div>
+                        <h3 class="text-3xl font-bold text-white mb-2" data-i18n="cat_airport">رحلات المطار</h3>
+                        <p class="text-amber-300 text-sm" data-i18n="cat_airport_sub">استقبال وتوديع VIP</p>
+                    </div>
+                    <div class="p-6">
+                        <div class="space-y-1">
+                            <div class="route-item flex justify-between items-center py-3 border-b border-white/5">
+                                <div class="flex items-center gap-3">
+                                    <i class="fa-solid fa-car-side text-secondary"></i>
+                                    <span class="font-semibold text-gray-200 text-sm md:text-base"><span data-i18n="city_amman">عمان</span> <i class="fa-solid fa-arrow-left text-xs text-gray-500 mx-1"></i> <span data-i18n="city_airport">المطار</span> (كاملة)</span>
+                                </div>
+                                <span class="font-bold text-white text-lg">14.99 <span class="text-xs">د.أ</span></span>
+                            </div>
+
+                            <div class="route-item flex justify-between items-center py-3 border-b border-white/5">
+                                <div class="flex items-center gap-3">
+                                    <i class="fa-solid fa-car-side text-secondary"></i>
+                                    <span class="font-semibold text-gray-200 text-sm md:text-base"><span data-i18n="city_irbid">إربد</span> <i class="fa-solid fa-arrow-left text-xs text-gray-500 mx-1"></i> <span data-i18n="city_airport">المطار</span> (كاملة)</span>
+                                </div>
+                                <span class="font-bold text-white text-lg">24.99 <span class="text-xs">د.أ</span></span>
+                            </div>
+
+                            <div class="route-item flex justify-between items-center py-3 border-b border-white/5">
+                                <div class="flex items-center gap-3">
+                                    <i class="fa-solid fa-car text-secondary"></i>
+                                    <span class="font-semibold text-gray-200 text-sm md:text-base"><span data-i18n="city_airport">المطار</span> <i class="fa-solid fa-arrow-left text-xs text-gray-500 mx-1"></i> <span data-i18n="city_zarqa">الزرقاء</span></span>
+                                </div>
+                                <span class="font-bold text-white text-lg">19.99 <span class="text-xs">د.أ</span></span>
+                            </div>
+
+                            <div class="route-item flex justify-between items-center py-3 border-b border-white/5">
+                                <div class="flex items-center gap-3">
+                                    <i class="fa-solid fa-route text-secondary"></i>
+                                    <span class="font-semibold text-gray-200 text-sm md:text-base"><span data-i18n="city_airport">المطار</span> <i class="fa-solid fa-arrows-left-right text-xs text-gray-500 mx-1"></i> <span data-i18n="city_bridge">الجسر</span></span>
+                                </div>
+                                <span class="font-bold text-white text-lg">24.99 <span class="text-xs">د.أ</span></span>
+                            </div>
+                            
+                            <div class="route-item flex justify-between items-center py-3 border-b border-white/5">
+                                <div class="flex items-center gap-3">
+                                    <i class="fa-solid fa-passport text-secondary"></i>
+                                    <span class="font-semibold text-gray-200 text-sm md:text-base"><span data-i18n="city_airport">المطار</span> <i class="fa-solid fa-arrow-left text-xs text-gray-500 mx-1"></i> <span data-i18n="city_crossing">المعبر</span></span>
+                                </div>
+                                <span class="font-bold text-white text-lg">34.99 <span class="text-xs">د.أ</span></span>
+                            </div>
+
+                            <div class="route-item flex justify-between items-center py-3">
+                                <div class="flex items-center gap-3">
+                                    <i class="fa-solid fa-map-location-dot text-secondary"></i>
+                                    <span class="font-semibold text-gray-200 text-sm md:text-base"><span data-i18n="city_airport">المطار</span> <i class="fa-solid fa-arrow-left text-xs text-gray-500 mx-1"></i> <span data-i18n="city_jaber">جابر</span> (كاملة)</span>
+                                </div>
+                                <span class="font-bold text-white text-lg">34.99 <span class="text-xs">د.أ</span></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-secondary/10 p-4 text-center border-t border-white/5">
+                        <a href="https://wa.me/962789907187" target="_blank" class="text-secondary font-bold hover:text-white transition flex items-center justify-center gap-2 text-sm" data-i18n="btn_book_airport">
+                            حجز رحلة مطار <i class="fa-solid fa-arrow-left-long"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Category 3: Borders (المعابر والجسور) -->
+                <div class="glass-card rounded-2xl overflow-hidden" data-aos="fade-up" data-aos-delay="300">
+                    <div class="bg-gradient-to-b from-white/10 to-transparent p-8 text-center border-b border-white/10 relative">
+                        <div class="w-20 h-20 bg-gradient-to-tr from-gray-500 to-gray-300 rounded-full flex items-center justify-center mx-auto mb-5 shadow-[0_0_20px_rgba(156,163,175,0.4)]">
+                            <i class="fa-solid fa-bridge-water text-4xl text-darker"></i>
+                        </div>
+                        <h3 class="text-3xl font-bold text-white mb-2" data-i18n="cat_borders">الجسور والمعابر</h3>
+                        <p class="text-gray-400 text-sm" data-i18n="cat_borders_sub">توصيل آمن للمنافذ الحدودية</p>
+                    </div>
+                    <div class="p-6">
+                        <div class="space-y-1">
+                            <div class="route-item flex justify-between items-center py-3 border-b border-white/5">
+                                <div class="flex items-center gap-3">
+                                    <i class="fa-solid fa-car text-gray-400"></i>
+                                    <span class="font-semibold text-gray-200 text-sm md:text-base"><span data-i18n="city_irbid">إربد</span> <i class="fa-solid fa-arrow-left text-xs text-primary mx-1"></i> <span data-i18n="city_bridge">الجسر</span> (كاملة)</span>
+                                </div>
+                                <span class="font-bold text-white text-lg">24.99 <span class="text-xs">د.أ</span></span>
+                            </div>
+                            
+                            <div class="route-item flex justify-between items-center py-3 border-b border-white/5">
+                                <div class="flex items-center gap-3">
+                                    <i class="fa-solid fa-car text-gray-400"></i>
+                                    <span class="font-semibold text-gray-200 text-sm md:text-base"><span data-i18n="city_amman">عمان</span> <i class="fa-solid fa-arrow-left text-xs text-primary mx-1"></i> <span data-i18n="city_bridge">الجسر</span> (كاملة)</span>
+                                </div>
+                                <span class="font-bold text-white text-lg">24.99 <span class="text-xs">د.أ</span></span>
+                            </div>
+
+                            <div class="route-item flex justify-between items-center py-3 border-b border-white/5">
+                                <div class="flex items-center gap-3">
+                                    <i class="fa-solid fa-car text-gray-400"></i>
+                                    <span class="font-semibold text-gray-200 text-sm md:text-base"><span data-i18n="city_irbid">إربد</span> <i class="fa-solid fa-arrow-left text-xs text-primary mx-1"></i> <span data-i18n="city_crossing">المعبر</span> (كاملة)</span>
+                                </div>
+                                <span class="font-bold text-white text-lg">24.99 <span class="text-xs">د.أ</span></span>
+                            </div>
+
+                            <div class="route-item flex justify-between items-center py-3 border-b border-white/5">
+                                <div class="flex items-center gap-3">
+                                    <i class="fa-solid fa-car text-gray-400"></i>
+                                    <span class="font-semibold text-gray-200 text-sm md:text-base"><span data-i18n="city_amman">عمان</span> <i class="fa-solid fa-arrow-left text-xs text-primary mx-1"></i> <span data-i18n="city_crossing">المعبر</span> (كاملة)</span>
+                                </div>
+                                <span class="font-bold text-white text-lg">24.99 <span class="text-xs">د.أ</span></span>
+                            </div>
+
+                            <div class="route-item flex justify-between items-center py-3 border-b border-white/5">
+                                <div class="flex items-center gap-3">
+                                    <i class="fa-solid fa-car text-gray-400"></i>
+                                    <span class="font-semibold text-gray-200 text-sm md:text-base"><span data-i18n="city_irbid">إربد</span> <i class="fa-solid fa-arrow-left text-xs text-primary mx-1"></i> <span data-i18n="city_jaber">جابر</span> (كاملة)</span>
+                                </div>
+                                <span class="font-bold text-white text-lg">14.99 <span class="text-xs">د.أ</span></span>
+                            </div>
+
+                            <div class="route-item flex justify-between items-center py-3">
+                                <div class="flex items-center gap-3">
+                                    <i class="fa-solid fa-car text-gray-400"></i>
+                                    <span class="font-semibold text-gray-200 text-sm md:text-base"><span data-i18n="city_amman">عمان</span> <i class="fa-solid fa-arrow-left text-xs text-primary mx-1"></i> <span data-i18n="city_jaber">جابر</span></span>
+                                </div>
+                                <span class="font-bold text-white text-lg">19.99 <span class="text-xs">د.أ</span></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="py-20 bg-gray-900 border-t border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10 text-center">
+                <div class="p-6 rounded-2xl hover:bg-gray-800 transition duration-300" data-aos="zoom-in" data-aos-delay="0">
+                    <div class="w-24 h-24 bg-gray-800 rounded-full flex items-center justify-center mx-auto mb-6 text-primary text-4xl shadow-lg border border-gray-700">
+                        <i class="fa-solid fa-stopwatch"></i>
+                    </div>
+                    <h4 class="text-2xl font-bold mb-3 text-white" data-i18n="feat_time_title">دقة متناهية بالمواعيد</h4>
+                    <p class="text-gray-400" data-i18n="feat_time_desc">وقتك من ذهب، لذلك نلتزم بالوصول في الوقت المحدد تماماً لضمان سير رحلتك بسلام.</p>
+                </div>
+                <div class="p-6 rounded-2xl hover:bg-gray-800 transition duration-300 transform md:-translate-y-4" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="w-24 h-24 bg-gray-800 rounded-full flex items-center justify-center mx-auto mb-6 text-secondary text-4xl shadow-lg border border-gray-700">
+                        <i class="fa-solid fa-shield-cat"></i>
+                    </div>
+                    <h4 class="text-2xl font-bold mb-3 text-white" data-i18n="feat_safe_title">أمان وموثوقية عالية</h4>
+                    <p class="text-gray-400" data-i18n="feat_safe_desc">سيارات حديثة ومفحوصة دورياً، وسائقين محترفين ذوي خبرة لرحلة آمنة ومريحة لك ولعائلتك.</p>
+                </div>
+                <div class="p-6 rounded-2xl hover:bg-gray-800 transition duration-300" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="w-24 h-24 bg-gray-800 rounded-full flex items-center justify-center mx-auto mb-6 text-primary text-4xl shadow-lg border border-gray-700">
+                        <i class="fa-solid fa-sack-dollar"></i>
+                    </div>
+                    <h4 class="text-2xl font-bold mb-3 text-white" data-i18n="feat_price_title">أسعار لا تقبل المنافسة</h4>
+                    <p class="text-gray-400" data-i18n="feat_price_desc">نقدم لك الفخامة والخدمة الممتازة بأفضل وأوفر الأسعار في السوق الأردني.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact / Footer Section -->
+    <footer id="contact" class="bg-darker pt-20 pb-10 text-gray-300 border-t border-white/10 relative overflow-hidden">
+        <!-- Decoration -->
+        <div class="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-primary via-secondary to-primary"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-16 border-b border-gray-800 pb-16 text-center md:text-right rtl:md:text-right ltr:md:text-left">
+                
+                <!-- Brand Info -->
+                <div data-aos="fade-right">
+                    <div class="flex items-center justify-center md:justify-start gap-3 mb-6 rtl:flex-row ltr:flex-row">
+                        <div class="bg-gradient-to-br from-primary to-indigo-700 text-white p-3 rounded-xl shadow-lg shadow-indigo-500/30">
+                            <i class="fa-solid fa-car-side text-2xl"></i>
+                        </div>
+                        <h2 class="font-black text-4xl text-white tracking-wide">Viber <span class="text-primary">GO</span></h2>
+                    </div>
+                    <p class="text-gray-400 max-w-md mx-auto md:mx-0 mb-8 text-lg leading-relaxed" data-i18n="footer_desc">
+                        فايبر جو هو خيارك الأفضل، الأوفر، والأكثر أماناً للتنقل في كافة أنحاء المملكة الأردنية الهاشمية، من وإلى المطارات، المعابر، والجسور.
+                    </p>
+                    <div class="flex items-center justify-center md:justify-start gap-4">
+                        <a href="https://wa.me/962789907187" target="_blank" class="bg-white/5 hover:bg-white/10 border border-white/10 px-6 py-3 rounded-full text-white transition flex items-center gap-3">
+                            <i class="fa-solid fa-phone text-primary"></i>
+                            <span dir="ltr" class="font-bold">+962 7 8990 7187</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Social Links -->
+                <div class="flex flex-col items-center md:items-end justify-center rtl:md:items-end ltr:md:items-start" data-aos="fade-left">
+                    <h3 class="text-3xl font-bold text-white mb-8 flex items-center gap-3">
+                        <span data-i18n="footer_social">تواصل معنا وتابعنا</span> 
+                        <span class="animate-bounce inline-block">🚀</span>
+                    </h3>
+                    <div class="flex gap-6">
+                        <!-- Facebook -->
+                        <div class="text-center group">
+                            <a href="https://www.facebook.com/profile.php?id=61595026114431" target="_blank" class="w-16 h-16 bg-gray-800 rounded-2xl flex items-center justify-center text-3xl hover:bg-blue-600 hover:text-white transition-all duration-300 transform group-hover:-translate-y-3 shadow-lg border border-gray-700 group-hover:border-blue-500">
+                                <i class="fa-brands fa-facebook-f"></i>
+                            </a>
+                            <span class="block mt-3 text-sm font-semibold text-gray-500 group-hover:text-blue-500 transition" data-i18n="social_fb">فيسبوك</span>
+                        </div>
+                        <!-- Instagram -->
+                        <div class="text-center group">
+                            <a href="https://www.instagram.com/vibergo.jo?fbclid=IwY2xjawUwGzVleHRuA2FlbQIxMABwZG9mAWJyaWQRMXVyNlpXVFRVR2oySEZTTmpzcnRjBmFwcF9pZBAyMjIwMzkxNzg4MjAwODkyAAEe6zG2V8A9HrWQ-c5RIrwXcTeDU5GSzxPExWBvM-qQkBmfEsKQCgkKpXBP6ts_aem_Ip6Y5Q-hkyxnoVeC9VjLWA" target="_blank" class="w-16 h-16 bg-gray-800 rounded-2xl flex items-center justify-center text-3xl hover:bg-gradient-to-tr hover:from-yellow-400 hover:via-pink-500 hover:to-purple-600 hover:text-white transition-all duration-300 transform group-hover:-translate-y-3 shadow-lg border border-gray-700 group-hover:border-pink-500">
+                                <i class="fa-brands fa-instagram"></i>
+                            </a>
+                            <span class="block mt-3 text-sm font-semibold text-gray-500 group-hover:text-pink-500 transition" data-i18n="social_ig">إنستغرام</span>
+                        </div>
+                        <!-- WhatsApp -->
+                        <div class="text-center group">
+                            <a href="https://wa.me/962789907187" target="_blank" class="w-16 h-16 bg-gray-800 rounded-2xl flex items-center justify-center text-3xl hover:bg-green-500 hover:text-white transition-all duration-300 transform group-hover:-translate-y-3 shadow-lg border border-gray-700 group-hover:border-green-500">
+                                <i class="fa-brands fa-whatsapp"></i>
+                            </a>
+                            <span class="block mt-3 text-sm font-semibold text-gray-500 group-hover:text-green-500 transition" data-i18n="social_wa">واتساب</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-8 text-center text-sm text-gray-500 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p>&copy; 2026 <span data-i18n="footer_copy">جميع الحقوق محفوظة لـ</span> Viber GO.</p>
+                <p><span data-i18n="footer_made">صُمم بكل</span> <i class="fa-solid fa-heart text-red-500 animate-pulse mx-1"></i> <span data-i18n="footer_foryou">لخدمتكم</span></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Professional Floating WhatsApp Button (Left Side) -->
+    <a href="https://wa.me/962789907187" target="_blank" class="whatsapp-float fixed bottom-8 left-8 z-[100] text-white w-16 h-16 rounded-full flex items-center justify-center text-3xl shadow-2xl cursor-pointer">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Initialize AOS Animations
+        AOS.init({
+            once: true, 
+            offset: 50, 
+        });
+
+        // Mobile Menu Toggle Logic
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+
+        // Close mobile menu on link click
+        const links = menu.querySelectorAll('a');
+        links.forEach(link => {
+            link.addEventListener('click', () => {
+                menu.classList.add('hidden');
+            });
+        });
+
+        // Navbar blur effect on scroll
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 10) {
+                nav.classList.add('shadow-lg', 'bg-white/95');
+                nav.classList.remove('bg-white');
+            } else {
+                nav.classList.remove('shadow-lg');
+                nav.classList.add('bg-white');
+            }
+        });
+
+        // ==========================================
+        // MULTILINGUAL SYSTEM (Arabic / English)
+        // ==========================================
+        const translations = {
+            ar: {
+                logo_sub: "لخدمات التوصيل",
+                nav_home: "الرئيسية",
+                nav_services: "خدماتنا وأسعارنا",
+                nav_contact: "تواصل معنا",
+                nav_book: "احجز الآن",
+                hero_badge: "الخيار الأوفر والأسرع والأكثر أماناً في الأردن",
+                hero_title_1: "مفهوم جديد لخدمات التنقل مع",
+                hero_desc: "أسطول حديث، سائقون محترفون، وأسعار صُممت لتناسبك. نوفر لك خدمات التوصيل بين المدن، رحلات المطار، والمعابر والجسور بأعلى معايير الجودة والفخامة.",
+                hero_btn_book: "اطلب سيارتك الآن",
+                hero_btn_prices: "استكشف الأسعار",
+                offer_text: "عرض خاص جداً ومميز! سيارة كاملة فقط بـ",
+                currency: "د.أ",
+                offer_btn: "احجز العرض فوراً",
+                sec_services_title_1: "خدماتنا",
+                sec_services_title_2: "وأسعارنا",
+                sec_services_desc: "أسعار مدروسة بشفافية تامة لتمنحك رفاهية التنقل بأسعار لا تقبل المنافسة.",
+                
+                cat_intercity: "بين المحافظات",
+                cat_intercity_sub: "عمان، إربد، الزرقاء",
+                route_fullcar_offer: "سيارة كاملة (عرض)",
+                route_family: "سيارة عائلية",
+                city_irbid: "إربد",
+                city_amman: "عمان",
+                city_zarqa: "الزرقاء",
+                city_airport: "المطار",
+                city_bridge: "الجسر",
+                city_crossing: "المعبر",
+                city_jaber: "جابر",
+                
+                badge_popular: "الأكثر طلباً",
+                cat_airport: "رحلات المطار",
+                cat_airport_sub: "استقبال وتوديع VIP",
+                btn_book_airport: 'حجز رحلة مطار <i class="fa-solid fa-arrow-left-long"></i>',
+                
+                cat_borders: "الجسور والمعابر",
+                cat_borders_sub: "توصيل آمن للمنافذ الحدودية",
+                
+                feat_time_title: "دقة متناهية بالمواعيد",
+                feat_time_desc: "وقتك من ذهب، لذلك نلتزم بالوصول في الوقت المحدد تماماً لضمان سير رحلتك بسلام.",
+                feat_safe_title: "أمان وموثوقية عالية",
+                feat_safe_desc: "سيارات حديثة ومفحوصة دورياً، وسائقين محترفين ذوي خبرة لرحلة آمنة ومريحة لك ولعائلتك.",
+                feat_price_title: "أسعار لا تقبل المنافسة",
+                feat_price_desc: "نقدم لك الفخامة والخدمة الممتازة بأفضل وأوفر الأسعار في السوق الأردني.",
+                
+                footer_desc: "فايبر جو هو خيارك الأفضل، الأوفر، والأكثر أماناً للتنقل في كافة أنحاء المملكة الأردنية الهاشمية، من وإلى المطارات، المعابر، والجسور.",
+                footer_social: "تواصل معنا وتابعنا",
+                social_fb: "فيسبوك",
+                social_ig: "إنستغرام",
+                social_wa: "واتساب",
+                footer_copy: "جميع الحقوق محفوظة لـ",
+                footer_made: "صُمم بكل",
+                footer_foryou: "لخدمتكم"
+            },
+            en: {
+                logo_sub: "Delivery & Transport",
+                nav_home: "Home",
+                nav_services: "Services & Prices",
+                nav_contact: "Contact Us",
+                nav_book: "Book Now",
+                hero_badge: "The Fastest & Most Affordable Choice in Jordan",
+                hero_title_1: "A New Concept of Transportation with",
+                hero_desc: "Modern fleet, professional drivers, and prices tailored for you. We provide intercity rides, airport transfers, and border crossings with the highest standards of luxury.",
+                hero_btn_book: "Request Your Ride",
+                hero_btn_prices: "Explore Prices",
+                offer_text: "Very Special Offer! Full Car for only",
+                currency: "JOD",
+                offer_btn: "Book Offer Now",
+                sec_services_title_1: "Our Services",
+                sec_services_title_2: "& Prices",
+                sec_services_desc: "Transparent and well-studied prices giving you the luxury of travel at unbeatable rates.",
+                
+                cat_intercity: "Intercity Rides",
+                cat_intercity_sub: "Amman, Irbid, Zarqa",
+                route_fullcar_offer: "Full Car (Offer)",
+                route_family: "Family Car",
+                city_irbid: "Irbid",
+                city_amman: "Amman",
+                city_zarqa: "Zarqa",
+                city_airport: "Airport",
+                city_bridge: "Bridge",
+                city_crossing: "Border",
+                city_jaber: "Jaber",
+                
+                badge_popular: "Most Popular",
+                cat_airport: "Airport Transfers",
+                cat_airport_sub: "VIP Pickup & Drop-off",
+                btn_book_airport: 'Book Airport Ride <i class="fa-solid fa-arrow-right-long"></i>',
+                
+                cat_borders: "Bridges & Borders",
+                cat_borders_sub: "Safe transport to all borders",
+                
+                feat_time_title: "Absolute Punctuality",
+                feat_time_desc: "Your time is gold, so we commit to arriving exactly on time to ensure your trip goes smoothly.",
+                feat_safe_title: "High Safety & Reliability",
+                feat_safe_desc: "Modern, regularly inspected cars and professional drivers for a safe and comfortable journey.",
+                feat_price_title: "Unbeatable Prices",
+                feat_price_desc: "We offer you luxury and excellent service at the best and most affordable prices in the Jordanian market.",
+                
+                footer_desc: "Viber GO is your best, most affordable, and safest choice for moving across Jordan, to and from airports, borders, and bridges.",
+                footer_social: "Connect & Follow Us",
+                social_fb: "Facebook",
+                social_ig: "Instagram",
+                social_wa: "WhatsApp",
+                footer_copy: "All Rights Reserved to",
+                footer_made: "Crafted with",
+                footer_foryou: "for you"
+            }
+        };
+
+        let currentLang = 'ar';
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'ar' ? 'en' : 'ar';
+            const root = document.documentElement;
+            const body = document.body;
+            
+            // Toggle Direction and Lang attributes
+            if(currentLang === 'ar') {
+                root.setAttribute('dir', 'rtl');
+                root.setAttribute('lang', 'ar');
+                body.classList.remove('lang-en');
+                document.getElementById('lang-text').innerText = 'English';
+                document.getElementById('lang-text-mobile').innerText = 'EN';
+            } else {
+                root.setAttribute('dir', 'ltr');
+                root.setAttribute('lang', 'en');
+                body.classList.add('lang-en');
+                document.getElementById('lang-text').innerText = 'عربي';
+                document.getElementById('lang-text-mobile').innerText = 'AR';
+            }
+
+            // Update all translated elements
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if(translations[currentLang][key]) {
+                    el.innerHTML = translations[currentLang][key];
+                }
+            });
+            
+            // Fix specific arrows direction based on language
+            const arrows = document.querySelectorAll('.fa-arrow-left, .fa-arrow-right');
+            arrows.forEach(arrow => {
+                if(currentLang === 'en' && arrow.classList.contains('fa-arrow-left')) {
+                    arrow.classList.remove('fa-arrow-left');
+                    arrow.classList.add('fa-arrow-right');
+                } else if (currentLang === 'ar' && arrow.classList.contains('fa-arrow-right')) {
+                    arrow.classList.remove('fa-arrow-right');
+                    arrow.classList.add('fa-arrow-left');
+                }
+            });
+        }
+    </script>
+</body>
+</html>
